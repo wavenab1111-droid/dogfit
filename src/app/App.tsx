@@ -9,7 +9,7 @@ export default function App() {
   const mockupRef = useRef<HTMLDivElement>(null);
   const [exporting, setExporting] = useState(false);
   const [showQR, setShowQR] = useState(false);
-  const pageUrl = window.location.href;
+  const pageUrl = "https://wavenab1111-droid.github.io/dogfit/";
 
   const handleExport = async () => {
     if (!mockupRef.current) return;
@@ -30,21 +30,28 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center p-10 gap-6"
-      style={{ background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)" }}
+      className="min-h-screen flex flex-col items-center justify-center gap-6"
+      style={{ background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)", padding: "40px 16px" }}
     >
-      {/* Mockup area */}
-      <div ref={mockupRef} style={{ padding: 40, background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)", borderRadius: 24 }}>
-        <div className="flex gap-8 items-start">
-          <PhoneFrame>
-            <Screen1Home />
-          </PhoneFrame>
-          <PhoneFrame>
-            <Screen2Course />
-          </PhoneFrame>
-          <PhoneFrame>
-            <Screen3Report />
-          </PhoneFrame>
+      {/* Mockup area — scrollable on mobile, centered on desktop */}
+      <div
+        ref={mockupRef}
+        style={{
+          padding: 32,
+          background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)",
+          borderRadius: 24,
+          overflowX: "auto",
+          WebkitOverflowScrolling: "touch",
+          maxWidth: "100vw",
+          scrollSnapType: "x mandatory",
+        }}
+      >
+        <div style={{ display: "flex", gap: 24, alignItems: "flex-start", width: "max-content" }}>
+          {[<Screen1Home />, <Screen2Course />, <Screen3Report />].map((screen, i) => (
+            <div key={i} style={{ scrollSnapAlign: "center" }}>
+              <PhoneFrame>{screen}</PhoneFrame>
+            </div>
+          ))}
         </div>
       </div>
 
