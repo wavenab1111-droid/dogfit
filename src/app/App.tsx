@@ -28,31 +28,52 @@ export default function App() {
     }
   };
 
+  const screens = [<Screen1Home />, <Screen2Course />, <Screen3Report />];
+
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center gap-6"
-      style={{ background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)", padding: "40px 16px" }}
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 24,
+        padding: "32px 0",
+        overflow: "hidden",
+      }}
     >
-      {/* Mockup area — scrollable on mobile, centered on desktop */}
+      {/* Carousel — full width, scroll-snapping */}
       <div
         ref={mockupRef}
         style={{
-          padding: 32,
-          background: "linear-gradient(135deg, #EEF4FF 0%, #F7FAFF 60%, #E8F0FE 100%)",
-          borderRadius: 24,
-          overflowX: "auto",
-          WebkitOverflowScrolling: "touch",
-          maxWidth: "100vw",
+          display: "flex",
+          overflowX: "scroll",
           scrollSnapType: "x mandatory",
+          WebkitOverflowScrolling: "touch",
+          width: "100vw",
+          gap: 24,
+          paddingLeft: "calc(50vw - 140px)",
+          paddingRight: "calc(50vw - 140px)",
+          boxSizing: "border-box",
+          paddingTop: 32,
+          paddingBottom: 32,
+          scrollbarWidth: "none",
         }}
       >
-        <div style={{ display: "flex", gap: 24, alignItems: "flex-start", width: "max-content" }}>
-          {[<Screen1Home />, <Screen2Course />, <Screen3Report />].map((screen, i) => (
-            <div key={i} style={{ scrollSnapAlign: "center" }}>
-              <PhoneFrame>{screen}</PhoneFrame>
-            </div>
-          ))}
-        </div>
+        <style>{`div::-webkit-scrollbar { display: none; }`}</style>
+        {screens.map((screen, i) => (
+          <div
+            key={i}
+            style={{
+              scrollSnapAlign: "center",
+              flexShrink: 0,
+            }}
+          >
+            <PhoneFrame>{screen}</PhoneFrame>
+          </div>
+        ))}
       </div>
 
       {/* Buttons */}
